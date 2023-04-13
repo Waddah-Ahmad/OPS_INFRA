@@ -6,9 +6,9 @@ output "public_subnets_id" {
   value = "${aws_subnet.operations-public.*.id}"
 }
 
-# output "private_subnets_id" {
-#   value = ["${aws_subnet.operations-private.*.id}"]
-# }
+output "private_subnets_id" {
+  value = ["${aws_subnet.operations-private.*.id}"]
+}
 
 
 output "public_route_table" {

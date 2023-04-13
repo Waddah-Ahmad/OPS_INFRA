@@ -41,7 +41,7 @@ data "aws_ami" "jenkins_server" {
 
 # userdata for the Jenkins server ...
 data "template_file" "jenkins_server" {
-  template = "${file("${path.module}/scripts/jenkins-server.sh")}"
+  template = "${file("${path.module}/jenkins-server.sh")}"
 
   vars = {
     env = "dev"
@@ -52,11 +52,11 @@ data "template_file" "jenkins_server" {
 # the Jenkins server itself
 resource "aws_instance" "jenkins_server" {
   ami                    		= "${data.aws_ami.jenkins_server.image_id}"
-  instance_type          		= "t2.micro"
+  instance_type          		= "t2.medium"
   key_name               		= "${data.aws_key_pair.jenkins.key_name}"
   subnet_id              		= var.pub_subnet_id[0]
   vpc_security_group_ids 		= [aws_security_group.jenkins_server.id]
-  user_data              		= "${data.template_file.jenkins_server.rendered}"
+  user_data              		= "${file("${path.module}/jenkins-server.sh")}"
 
   tags = {
     Name        = "jenkins-${var.environment}-server"
@@ -80,6 +80,6 @@ output "jenkins_server_public_ip" {
   value = "${aws_instance.jenkins_server.public_ip}"
 }
 
-# output "jenkins_server_private_ip" {
-#   value = "${aws_instance.jenkins_server.private_ip}"
-# }
+output "jenkins_server_private_ip" {
+  value = "${aws_instance.jenkins_server.private_ip}"
+}
