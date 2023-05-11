@@ -1,6 +1,3 @@
-# MAJOR_PROJECT_DOCS
-for better understanding check general docs first [DOCS REPO](https://github.com/Waddah-Ahmad/MAJOR_PROJECT_DOCS.git "repo home")
-> this project have future work and some requirements to be added like extra security , extra test codes , underlying infra for tha application
 
 # IAAC REPO
 this repository for infrastructure AS a code terraform consists of two servers hosted on AWS
